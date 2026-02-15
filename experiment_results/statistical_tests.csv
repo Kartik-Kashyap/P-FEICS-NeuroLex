@@ -1,0 +1,5 @@
+Attack,t-statistic,p-value (t-test),Significant (α=0.05),Mann-Whitney U,p-value (U-test),Cohen's d,Effect Size
+Noise,-1.587,0.1171,No,362.0,0.0048,-0.395,Small
+Deletion,-0.855,0.3958,No,529.5,0.4033,-0.203,Small
+Smoothing,8.702,0.0000,Yes,1104.0,0.0000,2.174,Large
+Combined,1.628,0.1081,No,741.0,0.0598,0.412,Small

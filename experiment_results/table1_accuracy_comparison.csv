@@ -1,0 +1,5 @@
+Attack Type,Sim Accuracy,Real Accuracy,Sim Precision,Real Precision,Sim Recall,Real Recall,Sim F1,Real F1
+Noise,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000
+Deletion,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000
+Smoothing,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000
+Combined,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000

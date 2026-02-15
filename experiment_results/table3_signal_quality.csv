@@ -1,0 +1,6 @@
+Attack,Sim PSNR (dB),Real PSNR (dB),Sim Spectral ρ,Real Spectral ρ,Sim Temporal ρ,Real Temporal ρ
+None,45.76,27.52,1.000,0.999,0.917,0.839
+Noise,42.20,28.39,1.000,0.983,0.838,0.847
+Deletion,5.51,9.43,0.834,0.831,0.059,0.176
+Smoothing,34.27,26.38,1.000,0.999,0.300,0.728
+Combined,5.49,9.77,0.833,0.820,0.053,0.187
