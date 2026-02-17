@@ -2229,108 +2229,104 @@ class PFEICSEnhancedSystem:
         doc.build(story)
     
 
-    import os
-import tkinter as tk
-from tkinter import messagebox, simpledialog
-# ... other imports remain the same ...
 
-def trigger_email_workflow(self):
-    if not self.container:
-        messagebox.showerror("Error", "No evidence acquired to email.")
-        return
+    def trigger_email_workflow(self):
+        if not self.container:
+            messagebox.showerror("Error", "No evidence acquired to email.")
+            return
 
-    # ────────────────────────────────────────────────
-    #           Ask user for credentials & recipient
-    # ────────────────────────────────────────────────
-    sender_email = simpledialog.askstring(
-        "Sender Email",
-        "Enter your sender email\n(must support app passwords – Gmail, etc.):"
-    )
-    if not sender_email:
-        return
-
-    app_password = simpledialog.askstring(
-        "App Password",
-        "Enter your email app password:",
-        show='*'
-    )
-    if not app_password:
-        return
-
-    receiver_email = simpledialog.askstring(
-        "Recipient Email",
-        "Enter the recipient's email address:"
-    )
-    if not receiver_email:
-        return
-
-    # Optional: very basic client-side sanity check
-    if "@" not in sender_email or "@" not in receiver_email:
-        messagebox.showwarning("Format Check", "One or both email addresses look invalid.\nContinue anyway?")
-        # You can also `return` here if you want to be stricter
-
-    overlay = TransmittingOverlay(self.root)
-
-    try:
-        overlay.update(10, "Packaging .pfeics container...")
-        case_id = self.metadata_entries["Case ID"].get()
-        container_path = f"TEMP_{case_id}.pfeics"
-        
-        # Export container
-        for e in self.chain_events:
-            self.container.add_chain_event(e)
-        self.container.export_container(container_path)
-
-        overlay.update(30, "Generating Signed PDF Report...")
-        pdf_path = f"TEMP_{case_id}_Report.pdf"
-        self._create_pdf_report(pdf_path)
-
-        overlay.update(60, "Establishing Secure SMTP Connection...")
-
-        # Actually send email
-        EmailSystem.send_forensic_package(
-            sender_email    = sender_email,
-            password        = app_password,
-            receiver_email  = receiver_email,
-            smtp_server     = "smtp.gmail.com",     # or make configurable later
-            smtp_port       = 587,
-            pdf_path        = pdf_path,
-            container_path  = container_path,
-            case_id         = case_id
+        # ────────────────────────────────────────────────
+        #           Ask user for credentials & recipient
+        # ────────────────────────────────────────────────
+        sender_email = simpledialog.askstring(
+            "Sender Email",
+            "Enter your sender email\n(must support app passwords – Gmail, etc.):"
         )
+        if not sender_email:
+            return
 
-        overlay.update(90, "Verifying Remote Receipt...")
-        overlay.update(100, "Transmission Successful.")
-        
-        self.root.after(500, overlay.close)
-        
-        # Clean up temp files
-        for path in (container_path, pdf_path):
-            if os.path.exists(path):
-                try:
-                    os.remove(path)
-                except:
-                    pass  # best effort cleanup
-
-        messagebox.showinfo("Success", f"Forensic package sent to {receiver_email}")
-        self.add_chain_event(
-            ChainEventType.EXPORT_PERFORMED,
-            f"Package emailed to {receiver_email} by {sender_email}"
+        app_password = simpledialog.askstring(
+            "App Password",
+            "Enter your email app password:",
+            show='*'
         )
+        if not app_password:
+            return
 
-    except Exception as e:
-        overlay.close()
-        messagebox.showerror("Transmission Failed", str(e))
-        self.log(f"Email Error: {str(e)}", "ERROR")
+        receiver_email = simpledialog.askstring(
+            "Recipient Email",
+            "Enter the recipient's email address:"
+        )
+        if not receiver_email:
+            return
 
-    finally:
-        # Extra safety net cleanup
-        for path in (container_path, pdf_path):
-            if os.path.exists(path):
-                try:
-                    os.remove(path)
-                except:
-                    pass
+        # Optional: very basic client-side sanity check
+        if "@" not in sender_email or "@" not in receiver_email:
+            messagebox.showwarning("Format Check", "One or both email addresses look invalid.\nContinue anyway?")
+            # You can also `return` here if you want to be stricter
+
+        overlay = TransmittingOverlay(self.root)
+
+        try:
+            overlay.update(10, "Packaging .pfeics container...")
+            case_id = self.metadata_entries["Case ID"].get()
+            container_path = f"TEMP_{case_id}.pfeics"
+            
+            # Export container
+            for e in self.chain_events:
+                self.container.add_chain_event(e)
+            self.container.export_container(container_path)
+
+            overlay.update(30, "Generating Signed PDF Report...")
+            pdf_path = f"TEMP_{case_id}_Report.pdf"
+            self._create_pdf_report(pdf_path)
+
+            overlay.update(60, "Establishing Secure SMTP Connection...")
+
+            # Actually send email
+            EmailSystem.send_forensic_package(
+                sender_email    = sender_email,
+                password        = app_password,
+                receiver_email  = receiver_email,
+                smtp_server     = "smtp.gmail.com",     # or make configurable later
+                smtp_port       = 587,
+                pdf_path        = pdf_path,
+                container_path  = container_path,
+                case_id         = case_id
+            )
+
+            overlay.update(90, "Verifying Remote Receipt...")
+            overlay.update(100, "Transmission Successful.")
+            
+            self.root.after(500, overlay.close)
+            
+            # Clean up temp files
+            for path in (container_path, pdf_path):
+                if os.path.exists(path):
+                    try:
+                        os.remove(path)
+                    except:
+                        pass  # best effort cleanup
+
+            messagebox.showinfo("Success", f"Forensic package sent to {receiver_email}")
+            self.add_chain_event(
+                ChainEventType.EXPORT_PERFORMED,
+                f"Package emailed to {receiver_email} by {sender_email}"
+            )
+
+        except Exception as e:
+            overlay.close()
+            messagebox.showerror("Transmission Failed", str(e))
+            self.log(f"Email Error: {str(e)}", "ERROR")
+
+        finally:
+            # Extra safety net cleanup
+            for path in (container_path, pdf_path):
+                if os.path.exists(path):
+                    try:
+                        os.remove(path)
+                    except:
+                        pass
 
 # ============================================================
 #  MAIN ENTRY POINT
