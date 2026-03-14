@@ -170,8 +170,9 @@ Contact: vaibhav.bsmscrfs2242925@nfsu.ac.in
 
 ### Inspiration & Acknowledgement
 
-**Mr. Rithin Parker Joseph**<br>
-Assistant Professor NFSU (Behavioural Forensics), Researcher (Criminal Psychology)
+Inspired by the pioneering neuro-forensic work of<br>
+**Dr. C. R. Mukundan** (BEOS)<br>
+and researchers studying P300-based concealed information detection.
 
 ## License
 

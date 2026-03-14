@@ -2149,6 +2149,8 @@ class PFEICSEnhancedSystem:
             ]))
             story.append(t)
             story.append(Spacer(1, 0.2*inch))
+
+            
             
             # Add all three audience explanations
             if self.container.neurolex_explanations:
@@ -2156,6 +2158,7 @@ class PFEICSEnhancedSystem:
                     if audience in self.container.neurolex_explanations:
                         story.append(Paragraph(f"<b>Interpretation for {audience}:</b>", 
                                             styles['Heading3']))
+                        story.append(Spacer(1, 0.12*inch))
                         style_exp = ParagraphStyle('Explanation', parent=styles['Normal'], 
                                                 fontSize=9, leftIndent=20, rightIndent=20,
                                                 backColor=colors.lightgrey, borderPadding=10)
