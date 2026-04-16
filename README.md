@@ -2,6 +2,8 @@
 
 **P-FEICS (Psycho-Forensic Evidence Integrity & Chain-of-Custody System)** is a court-admissible forensic management system designed to secure physiological signals (EEG, BEOS) against tampering. This repository contains the source code for the system v2.0, along with the complete experimental validation suite used to generate the data, tables, and figures for the accompanying research paper.
 
+<img src="prototype_ui.png"></img>
+
 ## Abstract
 
 Neuro-forensic evidence faces unique admissibility challenges under the Daubert standard due to the fragility of physiological data. P-FEICS addresses this by implementing a **Dual-Domain Watermarking** technique (LSB + DWT) combined with AES-256-GCM encryption and a hash-chained custody log. This ensures that any manipulation—such as signal splicing, selective filtering, or noise injection—is instantly detectable while preserving the diagnostic quality of the P300 waveforms.
@@ -12,7 +14,7 @@ It is difficult to look at the raw EEG signal and identify the state of the huma
 
 ## The Dataset
 
-The validation of this system utilizes a subset of the **DEAP (Database for Emotion Analysis using Physiological Signals)** dataset.
+The validation of this system utilizes a subset of the **DEAP (Database for Emotion Analysis using Physiological Signals)** [dataset](https://www.kaggle.com/datasets/samnikolas/eeg-dataset/data).
 
 The dataset consists of two parts:
 
@@ -31,6 +33,7 @@ The dataset consists of two parts:
 .
 └── P-FEICS-NeuroLex/
     ├── main.py                                    # Main GUI application (P-FEICS v2.0)
+    ├── prototype_ui.png                           # Main GUI application screenshot
     ├── EXPERIMENT_RUNNER.py                       # Experiment execution & artifact generation
     ├── graphviz_figure5_architecture_compact.py   # Compact architecture diagram generator
     ├── features_raw.csv                           # Real EEG dataset (DEAP subset)
