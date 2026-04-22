@@ -8,7 +8,7 @@ This module implements the complete experimental protocol for:
 2. Real EEG dataset robustness testing
 3. Statistical analysis and figure generation for publication
 
-Author: Research Team
+Author: Kartik Kashyap and Vaibhav Laxmi
 Date: 2026
 """
 
